@@ -15,7 +15,6 @@ public class Menu {
 	String name;
 	String desc;
 	int price;
-
 	static Scanner scanner = new Scanner(System.in);
 
 	public int getPrice() {
@@ -34,37 +33,57 @@ public class Menu {
 		this.desc = desc;
 	}
 
-	public Menu(String category, String name, int price) {
-		this.category = category;
+	public Menu(int category, String name, int price,String desc) {
+		this.category = categerize(category);
 		this.name = name;
 		this.price = price;
+		this.desc=desc;
 	}
-
+/*Method to Display the Menu*/
 	public static void displayMenu(List<Menu> menuList, int count) {
-		for (int i = 0; i < count; i++) {
-			System.out.println(i + "\t " + menuList.get(i).name + "\t\t\t" + menuList.get(i).desc + "\t\t\t" + menuList.get(i).getPrice());
+		for (int i = 0; i < menuList.size(); i++) {
+			
+			System.out.println(i + "\t " + menuList.get(i).name +  "\t\t\t" + menuList.get(i).getPrice()+"\t\t\t\t" + menuList.get(i).desc );
 		}
 	}
+	/*To allot category to Menu item*/
+	public static String categerize(int choice){
+		
+		switch(choice){
+			case 1:return("Starter");
+			case 2:return("Maincourse");
+			case 3:return("Salads");
+		}
+		return("\0");
+	}
+	List <Menu> starterCat=new ArrayList<Menu>();
+	List <Menu> mainCourseCat=new ArrayList<Menu>();
+	List <Menu> saladsCat=new ArrayList<Menu>();
 
+	/*To add Items to the menu*/
 	public static void addmenu(List<Menu> menuList, int itemCount) {
-		for (int i = 0; i < itemCount; i++) {
+		int lengthHolder=menuList.size();
+		for (int i = lengthHolder; i <lengthHolder+ itemCount; i++) {
 			menuList.add(i, new Menu());
 
 			System.out.println("Please enter Name ");
 			menuList.get(i).name = scanner.next();
 
-			System.out.println("Please enter price for the item followed by category");
+			System.out.println("Please enter price for the item");
 			menuList.get(i).price = scanner.nextInt();
-
-			menuList.get(i).category = scanner.next();
+			System.out.println("Please Select the category of the Item");
+			System.out.println("Press \n 1\tStarter and Soup\n 2\tMain Course\n 3\tSalads");
+			menuList.get(i).category = categerize(scanner.nextInt());
 			System.out.println("Please enter Description ");
 			menuList.get(i).desc = "";
 			menuList.get(i).desc = scanner.next();
 		}
 	}
 
+
+	static List<Menu> menuList = new ArrayList<Menu>();
 	public static void main(String Args[]) {
-		List<Menu> menuList = new ArrayList<Menu>();
+		
 		int choice, itemCount = 0;
 
 		do {

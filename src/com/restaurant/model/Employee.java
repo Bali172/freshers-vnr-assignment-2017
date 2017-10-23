@@ -12,7 +12,7 @@ public class Employee extends EmployeeDetails {
 	};
 
 	static Scanner scanner = new Scanner(System.in);
-	static List<EmployeeDetails> e = new ArrayList<EmployeeDetails>();
+	static List<EmployeeDetails> employeedetails = new ArrayList<EmployeeDetails>();
 
 	/* Using queues for allotting resources required (declaration) */
 	PriorityQueue<String> managers = new PriorityQueue<String>();
@@ -20,7 +20,10 @@ public class Employee extends EmployeeDetails {
 	PriorityQueue<String> busBoys = new PriorityQueue<String>();
 	PriorityQueue<String> chefs = new PriorityQueue<String>();
 	PriorityQueue<String> hostess = new PriorityQueue<String>();
-
+	/*for(int count=0;count<Employee){
+		
+	}
+*/
 	public String allotManager() {
 
 		if (managers.size() > 0) {
@@ -88,16 +91,19 @@ public class Employee extends EmployeeDetails {
 		hostess.add(k);
 	}
 
+
 	public static void addUser(List<EmployeeDetails> em) {
 		System.out.println("Please enter the name of the empoloyee");
 		String i = scanner.next();
 		System.out.println("Please provide department followed by salary ");
-		String j = scanner.next();
+		System.out.println("Press\n 1 for Manager\n");
+		System.out.println("2 for Busboy\n 3 for Hostess\n 4 for Server\n 5 for Chef");
+		int j = scanner.nextInt();
 		float k = scanner.nextFloat();
 
 		EmployeeDetails temp = new EmployeeDetails();
 		temp.employeeName = i;
-		temp.department = j;
+		temp.department = allotdepartment(j);
 		temp.salary = k;
 		em.add(temp);
 	}
@@ -106,7 +112,7 @@ public class Employee extends EmployeeDetails {
 		System.out.println("Please enter the number of people you wish to enter");
 		int n = scanner.nextInt();
 		while (n > 0) {
-			addUser(e);
+			addUser(employeedetails);
 			n--;
 		}
 	}
@@ -121,7 +127,7 @@ public class Employee extends EmployeeDetails {
 	public static void main(String Args[]) {
 		System.out.println("Welcome to the employee section .Please proceed");
 		addUsers();
-		displayUsers(e, e.size());
+		displayUsers(employeedetails, employeedetails.size());
 	}
 
 }
